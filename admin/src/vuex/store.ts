@@ -1,6 +1,8 @@
 import { ComponentCustomProperties } from 'vue'
 import { Store, createStore } from 'vuex'
-import request from '@/utils/request'
+
+import Product from "@/utils/http";
+const _product = new Product();
 // import user from './user'
 // vuex 在typescript 中的使用
 declare module '@vue/runtime-core' {
@@ -42,11 +44,8 @@ const store = createStore({
 			},
 			actions: {
 				login ({ commit }, credentials) {
-					request({
-						url: '/test',
-						method: 'get'
-					}).then((res) => {
-						console.log(res)
+					_product.login({}).then((res: any) => {
+						console.log(res);
 					})
 				},
 

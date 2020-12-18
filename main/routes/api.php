@@ -47,6 +47,6 @@ Route::post('/login', function (Request $request) {
     return response($response, 201);
 });
 
-Route::get('/test', function () {
-    return response('dsadsad', 200);
+Route::get('/test', function (Request $request) {
+    return response('abc', 200);
 });

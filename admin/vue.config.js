@@ -1,10 +1,13 @@
 module.exports = {
+    // 修改的配置
+    // 将baseUrl: '/api',改为baseUrl: '/',
+    // baseUrl: '/',
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://laravel-tpl:8888',
+                target: '写路由',
                 changeOrigin: true,
-                ws: false,
+                ws: true,
                 pathRewrite: {
                     '^/api': '',
                 },
