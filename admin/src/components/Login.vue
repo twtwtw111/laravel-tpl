@@ -2,7 +2,7 @@
     <div class="form">
         <a-form :model="formline">
             <a-form-item>
-                <a-input placeholder="Username" v-model:value="formline.username">
+                <a-input placeholder="Username" v-model:value="formline.email">
                     <template #prefix>
                         <UserOutlined style="color:rgba(0,0,0,.25)" />
                     </template>
@@ -37,13 +37,12 @@ export default defineComponent({
     setup() {
         const store = useStore()
         const formline = reactive({
-            username: '',
+            email: '',
             password: '',
         })
         var login = () => {
             store.dispatch('user/login', formline)
         }
-
         return {
             formline,
             login,
