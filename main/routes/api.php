@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('admin/login', [UserController::class, 'login']);
+
+Route::post('admin/test', [UserController::class, 'test']);

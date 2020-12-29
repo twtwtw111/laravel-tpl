@@ -5,7 +5,7 @@ import 'ant-design-vue/dist/antd.css';
 import router from "./router"
 import axios, { AxiosInstance } from 'axios'
 import store from './vuex/store'
-import { Form, Input, Button } from 'ant-design-vue';
+import { Form, Input, Button, Menu, Layout } from 'ant-design-vue';
 
 const app = createApp(App);
 
@@ -17,10 +17,12 @@ declare module '@vue/runtime-core' {
 }
 
 // app.use(Antd)
+app.use(Layout)
 app.use(Button);
 app.use(Input)
 app.use(Form)
 app.use(router)
+app.use(Menu)
 app.use(store)
 app.config.globalProperties.$axios = axios
 app.mount("#app")
