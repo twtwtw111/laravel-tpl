@@ -32,12 +32,16 @@ class H2pDepositCallbackEvent implements ShouldBroadcast
     {
 
         //创建一个私有频道
-        return new PrivateChannel('user.' . $this->user->id);
+        return new PrivateChannel('message-channel.' . $this->user->id);
     }
 
     //这个方法是 要传递的数据
     public function broadcastWith()
     {
-        return ['depositeStatus' => 1];
+        return ['message' => "this is a private message"];
+    }
+    public function broadcastAS()
+    {
+        return 'MessageEvent';
     }
 }

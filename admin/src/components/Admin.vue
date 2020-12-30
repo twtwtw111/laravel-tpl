@@ -23,6 +23,7 @@
             <a-layout-header style="background: #fff; padding: 0">
                 <menu-unfold-outlined @click="() => (collapsed = !collapsed)" class="trigger" v-if="collapsed" />
                 <menu-fold-outlined @click="() => (collapsed = !collapsed)" class="trigger" v-else />
+                <a-button @click="logout">退出</a-button>
             </a-layout-header>
             <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
                 <router-view></router-view>
@@ -47,6 +48,11 @@ export default defineComponent({
             selectedKeys: ['1'],
             collapsed: false,
         }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('user/logout')
+        },
     },
 })
 </script>

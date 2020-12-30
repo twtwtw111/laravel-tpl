@@ -47,6 +47,11 @@ service.interceptors.request.use(
 		//   if (store.getters.sessionId) {
 		//     config.headers['X-SessionId'] = getSessionId(); // 让每个请求携带token--['X-Token']为自定义key
 		//   }
+		if (localStorage.getItem('Authorization')) {
+			config.headers['Authorization'] = "Bearer " + localStorage.getItem('Authorization')
+		}
+
+
 		return config;
 	},
 	(error: any) => {

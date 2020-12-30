@@ -2,33 +2,39 @@
     <div>user</div>
 </template>
 <script>
-import Echo from 'laravel-echo'
-import io from 'socket.io-client'
-
+import { User } from '@/utils/http'
+const _User = new User()
 export default {
     created() {
-        window.io = io
-        window.Echo = new Echo({
-            host: 'http://localhost:6001',
-            broadcaster: 'socket.io',
-            authEndpoint: '/api/broadcasting/auth',
-            auth: {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('Authorization'),
-                },
-            },
-        })
-        console.log(window.Echo)
-        let user_info = JSON.parse(localStorage.getItem('user'))
+        // let user_info = JSON.parse(localStorage.getItem('user'))
         // console.log(localStorage.getItem('Authorization'))
         // console.log(localStorage.getItem('Authorization'))
-        window.Echo.private('user.' + user_info.user.id)
-            .listen('.H2pDepositCallbackEvent', (e) => {
+        // console.log(user_info.user.id)
+        // window.Echo.private('message-channel.' + user_info.user.id)
+        //     .listen('MessageEvent', (e) => {
+        //         console.log(e)
+        //     })
+        //     .listen('.MessageEvent', (e) => {
+        //         console.log(e)
+        //     })
+        window.Echo.channel('notice')
+            .listen('.test', (e) => {
+                console.log(e)
+                console.log('2312321')
+            })
+            .listen('test', (e) => {
                 console.log(e)
             })
-            .listen('H2pDepositCallbackEvent', (e) => {
-                console.log(e)
+    },
+    mounted() {
+        this.getIndex()
+    },
+    methods: {
+        getIndex() {
+            _User.userList().then((res) => {
+                console.log(res.data)
             })
+        },
     },
 }
 </script>

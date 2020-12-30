@@ -1,7 +1,8 @@
 import { ComponentCustomProperties } from 'vue'
 import { Store, createStore } from 'vuex'
 import router from "../router"
-import Login from "@/utils/http";
+import { Login } from "@/utils/http";
+import { message } from "ant-design-vue"
 const _login = new Login();
 // import user from './user'
 // vuex 在typescript 中的使用
@@ -42,7 +43,7 @@ const store = createStore({
 			mutations: {
 				setUserData (state, userData) {
 					state.user = userData
-					console.log(state.user)
+					// console.log(state.user)
 					localStorage.setItem('user', JSON.stringify(userData))
 					localStorage.setItem('Authorization', userData.token)
 					// axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
@@ -50,6 +51,7 @@ const store = createStore({
 
 				clearUserData () {
 					localStorage.removeItem('user')
+					localStorage.removeItem('Authorization')
 					location.reload()
 				}
 			},
@@ -57,13 +59,22 @@ const store = createStore({
 				login ({ commit }, credentials) {
 					_login.login(credentials).then((res: any) => {
 						// console.log(res.data)
-						if (res.data.status == 200) {
+						if (res.data.code == 200) {
 							commit('setUserData', res.data.data)
 							router.push('/admin')
+						} else {
+							(message as any).error({
+								content: res.data.message || 'Error',
+								duration: 5,
+								background: true
+							})
 						}
 					})
 				},
+				logout ({ commit }) {
+					commit('clearUserData')
 
+				}
 
 			}
 		}
